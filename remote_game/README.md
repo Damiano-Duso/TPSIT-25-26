@@ -1,16 +1,57 @@
-# remote_game
+# Remote Game - Tris Online
 
-A new Flutter project.
+Applicazione mobile Flutter per giocare a Tris (Tic-Tac-Toe) a distanza tra due giocatori, con comunicazione via socket TCP.
 
-## Getting Started
+## Architettura
 
-This project is a starting point for a Flutter application.
+```
+remote_game/
+├── server.dart                    # Server TCP
+├── lib/
+│   ├── main.dart                 # Entry point
+│   ├── models/game_model.dart     # Modello Tris
+│   ├── services/game_service.dart # Servizio TCP
+│   └── screens/
+│       ├── connection_screen.dart # Connessione
+│       └── game_screen.dart       # Gioco
+└── pubspec.yaml
+```
 
-A few resources to get you started if this is your first Flutter project:
+## Installazione
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1. Installare dipendenze:
+```bash
+flutter pub get
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+2. Avviare il server:
+```bash
+dart server.dart
+```
+
+3. Avviare l'app (su due dispositivi):
+```bash
+flutter run
+```
+
+## Come giocare
+
+- Indirizzo server: `localhost` (o IP macchina server)
+- Porta: `5000`
+- Il primo giocatore è X, il secondo è O
+- Clicca sulle celle per piazzare il tuo simbolo
+- Vinci allineando tre simboli!
+
+## Griglia di gioco
+
+```
+[0] [1] [2]
+[3] [4] [5]
+[6] [7] [8]
+```
+
+## Protocollo TCP
+
+Comunicazione JSON tra client e server per gestire mosse e stato del gioco.
+
+## Progetto educativo TPSIT 2025-26
