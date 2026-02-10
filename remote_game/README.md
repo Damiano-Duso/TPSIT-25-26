@@ -53,5 +53,3 @@ flutter run
 ## Protocollo TCP
 
 Comunicazione JSON tra client e server per gestire mosse e stato del gioco.
-
-## Progetto educativo TPSIT 2025-26
