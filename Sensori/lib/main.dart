@@ -14,7 +14,7 @@ class MotionSimonApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Motion Simon',
+      title: 'Sensori',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
