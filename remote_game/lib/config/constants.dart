@@ -57,7 +57,7 @@ const double SPACING_LARGE = 24.0;
 const String MSG_WAITING = 'In attesa di un avversario...';
 const String MSG_YOUR_TURN = 'Il tuo turno!';
 const String MSG_OPPONENT_TURN = 'Turno dell\'avversario';
-const String MSG_YOU_WON = 'Hai vinto! 🎉';
+const String MSG_YOU_WON = 'Hai vinto!';
 const String MSG_YOU_LOST = 'Hai perso';
 const String MSG_DRAW = 'Pareggio!';
 const String MSG_OPPONENT_DISCONNECTED = 'L\'avversario si è disconnesso';
@@ -92,15 +92,3 @@ const bool DEBUG_MOVES = false;
 
 /// Abilita il logging della comunicazione
 const bool DEBUG_NETWORK = false;
-
-/// Abilita la funzionalità di revert della mossa (non implementata)
-const bool ENABLE_UNDO = false;
-
-/// Abilita la chat tra giocatori (non implementata)
-const bool ENABLE_CHAT = false;
-
-/// Abilita le statistiche (non implementata)
-const bool ENABLE_STATS = false;
-
-/// Abilita le partite salvate (non implementata)
-const bool ENABLE_SAVED_GAMES = false;
