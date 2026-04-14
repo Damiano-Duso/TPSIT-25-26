@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/game_model.dart';
 import '../services/game_service.dart';
 
+/// Schermata del gioco che mostra la griglia e gestisce gli aggiornamenti dal server.
 class GameScreen extends StatefulWidget {
   final GameService gameService;
   final String serverHost;
@@ -30,6 +31,7 @@ class _GameScreenState extends State<GameScreen> {
     _initializeGame();
   }
 
+  /// Inizializza la connessione e si registra per ricevere messaggi dal server.
   Future<void> _initializeGame() async {
     widget.gameService.onMessageReceived = _handleServerMessage;
     bool connected = await widget.gameService.connect();
@@ -46,6 +48,7 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 
+  /// Gestisce i messaggi in entrata dal server e aggiorna lo stato del gioco.
   void _handleServerMessage(Map<String, dynamic> message) {
     String type = message['type'] ?? '';
 
@@ -82,12 +85,14 @@ class _GameScreenState extends State<GameScreen> {
     });
   }
 
+  /// Invia la mossa selezionata al server se valida.
   void _onCellTapped(int index) {
     if (game.isValidMove(index) && game.canMove()) {
       widget.gameService.makeMove(index);
     }
   }
 
+  /// Torna alla schermata precedente chiudendo la connessione.
   void _resetGame() {
     widget.gameService.disconnect();
     Navigator.pop(context);
@@ -120,7 +125,6 @@ class _GameScreenState extends State<GameScreen> {
           : Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Header con informazioni di gioco
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
@@ -146,18 +150,16 @@ class _GameScreenState extends State<GameScreen> {
                     ],
                   ),
                 ),
-
-                // Griglia di gioco
                 Expanded(
                   child: Center(
                     child: GridView.builder(
                       shrinkWrap: true,
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 8,
-                        crossAxisSpacing: 8,
-                      ),
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 8,
+                            crossAxisSpacing: 8,
+                          ),
                       itemCount: 9,
                       itemBuilder: (context, index) {
                         return GestureDetector(
@@ -165,10 +167,7 @@ class _GameScreenState extends State<GameScreen> {
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.blue[100],
-                              border: Border.all(
-                                color: Colors.blue,
-                                width: 2,
-                              ),
+                              border: Border.all(color: Colors.blue, width: 2),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Center(
@@ -189,8 +188,6 @@ class _GameScreenState extends State<GameScreen> {
                     ),
                   ),
                 ),
-
-                // Pulsanti di azione
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Column(

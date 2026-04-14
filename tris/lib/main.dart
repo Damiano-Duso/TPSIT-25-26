@@ -1,19 +1,18 @@
-// Import della libreria Flutter per Material Design
+// Punto di ingresso dell'app Flutter per il gioco Tris Online.
 import 'package:flutter/material.dart';
 import 'screens/connection_screen.dart';
 
-// Funzione principale che avvia l'applicazione Tris
 void main() {
   runApp(const MyApp());
 }
 
-// Classe principale dell'applicazione Tris
+/// Widget principale dell'applicazione.
+/// Configura il tema e mostra la schermata di connessione.
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Costruisce l'app con Material Design e tema personalizzato
     return MaterialApp(
       title: 'Tris Online',
       theme: ThemeData(

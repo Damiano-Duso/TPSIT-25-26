@@ -1,17 +1,32 @@
 import 'dart:io';
 import 'dart:convert';
 
-/// Server per il gioco del Tris a distanza
-/// Accetta connessioni da due client e gestisce la logica del gioco
+/// Server TCP per il gioco Tris.
+/// Accetta due client, li abbina in una stanza e mantiene lo stato della partita.
 
 class GameRoom {
+  /// Socket del primo giocatore.
   late Socket player1;
+
+  /// Socket del secondo giocatore.
   late Socket player2;
-  late List<String> board; // 0-8 per le 9 celle
-  late String currentPlayer; // 'X' o 'O'
-  late String player1Symbol; // 'X' o 'O'
+
+  /// Griglia del gioco, 9 celle da 0 a 8.
+  late List<String> board;
+
+  /// Simbolo del giocatore in turno.
+  late String currentPlayer;
+
+  /// Simbolo assegnato al primo giocatore.
+  late String player1Symbol;
+
+  /// Simbolo assegnato al secondo giocatore.
   late String player2Symbol;
+
+  /// Indica se la partita è finita.
   late bool gameOver;
+
+  /// Simbolo del vincitore o 'Draw' in caso di pareggio.
   late String winner;
 
   GameRoom(this.player1, this.player2) {
@@ -23,6 +38,7 @@ class GameRoom {
     winner = '';
   }
 
+  /// Esegue la mossa sulla posizione specificata e aggiorna lo stato della partita.
   bool makeMove(int position, String symbol) {
     if (board[position].isNotEmpty || gameOver) {
       return false;
@@ -30,27 +46,27 @@ class GameRoom {
 
     board[position] = symbol;
 
-    // Verifica se c'è un vincitore
+    // Verifica se la mossa ha portato a una vittoria.
     if (checkWinner(symbol)) {
       gameOver = true;
       winner = symbol;
       return true;
     }
 
-    // Verifica se è un pareggio
+    // Verifica se la griglia è piena: pareggio.
     if (board.every((cell) => cell.isNotEmpty)) {
       gameOver = true;
       winner = 'Draw';
       return true;
     }
 
-    // Cambia turno
+    // Cambia il turno del giocatore.
     currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
     return true;
   }
 
+  /// Controlla le combinazioni vincenti per un simbolo.
   bool checkWinner(String symbol) {
-    // Combinazioni vincenti
     List<List<int>> winningCombinations = [
       [0, 1, 2],
       [3, 4, 5],
@@ -72,6 +88,7 @@ class GameRoom {
     return false;
   }
 
+  /// Restituisce lo stato corrente del gioco come JSON.
   String getBoardState() {
     return jsonEncode({
       'board': board,
@@ -103,7 +120,7 @@ void main() async {
           String action = request['action'] ?? '';
 
           if (action == 'joinGame') {
-            // Controlla se c'è un giocatore in attesa
+            // Cerca un giocatore in attesa di essere abbinato.
             Socket? waitingPlayer;
             for (var entry in connectedClients.entries) {
               if (entry.value == null && entry.key != client) {
@@ -113,13 +130,13 @@ void main() async {
             }
 
             if (waitingPlayer != null) {
-              // Crea una nuova stanza di gioco
+              // Crea una nuova stanza di gioco con due giocatori.
               GameRoom room = GameRoom(waitingPlayer, client);
               activeGames.add(room);
               connectedClients[waitingPlayer] = client;
               connectedClients[client] = waitingPlayer;
 
-              // Notifica entrambi i giocatori che il gioco è iniziato
+              // Invia il messaggio di inizio partita a entrambi.
               String gameStartMessage = jsonEncode({
                 'type': 'gameStarted',
                 'yourSymbol': 'X',
@@ -138,7 +155,7 @@ void main() async {
               });
               client.write('$gameStartMessage2\n');
             } else {
-              // Questo giocatore aspetta un avversario
+              // Nessun avversario subito disponibile: metti il client in attesa.
               connectedClients[client] = null;
               String waitMessage = jsonEncode({
                 'type': 'waiting',
@@ -151,7 +168,6 @@ void main() async {
             Socket? opponent = connectedClients[client];
 
             if (opponent != null) {
-              // Trova la stanza di gioco
               GameRoom? room;
               for (var r in activeGames) {
                 if ((r.player1 == client && r.player2 == opponent) ||
@@ -162,12 +178,14 @@ void main() async {
               }
 
               if (room != null) {
-                String playerSymbol =
-                    (room.player1 == client) ? room.player1Symbol : room.player2Symbol;
+                String playerSymbol = (room.player1 == client)
+                    ? room.player1Symbol
+                    : room.player2Symbol;
 
-                if (room.currentPlayer == playerSymbol && position >= 0 && position < 9) {
+                if (room.currentPlayer == playerSymbol &&
+                    position >= 0 &&
+                    position < 9) {
                   if (room.makeMove(position, playerSymbol)) {
-                    // Invia lo stato del gioco aggiornato a entrambi i giocatori
                     String stateMessage = jsonEncode({
                       'type': 'gameState',
                       'board': room.board,
@@ -179,7 +197,6 @@ void main() async {
                     client.write('$stateMessage\n');
                     opponent.write('$stateMessage\n');
                   } else {
-                    // Mossa non valida
                     String errorMessage = jsonEncode({
                       'type': 'error',
                       'message': 'Mossa non valida',
@@ -187,7 +204,6 @@ void main() async {
                     client.write('$errorMessage\n');
                   }
                 } else {
-                  // Non è il turno di questo giocatore o posizione non valida
                   String errorMessage = jsonEncode({
                     'type': 'error',
                     'message': 'Non è il tuo turno o posizione non valida',

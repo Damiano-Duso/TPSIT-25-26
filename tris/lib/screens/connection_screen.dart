@@ -1,9 +1,10 @@
-// Import delle librerie necessarie
+// Import delle librerie necessarie per la UI e il servizio di rete.
 import 'package:flutter/material.dart';
 import '../services/game_service.dart';
 import 'game_screen.dart';
 
-// Schermata per la connessione al server Tris
+/// Schermata iniziale per inserire host e porta del server.
+/// Questa pagina crea il GameService e passa i dati a GameScreen.
 class ConnectionScreen extends StatefulWidget {
   const ConnectionScreen({super.key});
 
@@ -11,7 +12,6 @@ class ConnectionScreen extends StatefulWidget {
   State<ConnectionScreen> createState() => _ConnectionScreenState();
 }
 
-// Stato della schermata di connessione
 class _ConnectionScreenState extends State<ConnectionScreen> {
   late TextEditingController _hostController;
   late TextEditingController _portController;
@@ -20,26 +20,24 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
   @override
   void initState() {
     super.initState();
-    // Inizializza i controller per i campi di testo
     _hostController = TextEditingController(text: 'localhost');
     _portController = TextEditingController(text: '5000');
   }
 
   @override
   void dispose() {
-    // Rilascia le risorse dei controller
     _hostController.dispose();
     _portController.dispose();
     super.dispose();
   }
 
-  // Metodo per connettersi al server
+  /// Apre la schermata di gioco con le impostazioni di connessione.
+  /// Non effettua la connessione qui, la connessione avviene in GameScreen.
   void _connect() async {
     final host = _hostController.text.trim();
     final port = int.tryParse(_portController.text.trim()) ?? 5000;
 
     if (host.isEmpty) {
-      // Mostra un messaggio di errore se l'host è vuoto
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Inserisci l\'indirizzo del server')),
       );
@@ -50,11 +48,9 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
       _isConnecting = true;
     });
 
-    // Crea il servizio di gioco con host e porta
     GameService gameService = GameService(host: host, port: port);
 
     if (mounted) {
-      // Naviga alla schermata di gioco se connesso
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -94,11 +90,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
                 ),
                 child: Column(
                   children: [
-                    Icon(
-                      Icons.games,
-                      size: 80,
-                      color: Colors.deepPurple,
-                    ),
+                    Icon(Icons.games, size: 80, color: Colors.deepPurple),
                     const SizedBox(height: 20),
                     const Text(
                       'Benvenuto al Tris Online!',
@@ -112,10 +104,7 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
                     const SizedBox(height: 20),
                     const Text(
                       'Connettiti a un server per giocare a distanza',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
-                      ),
+                      style: TextStyle(fontSize: 16, color: Colors.grey),
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -167,8 +156,9 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
                         height: 20,
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Colors.white,
+                          ),
                         ),
                       )
                     : const Text(

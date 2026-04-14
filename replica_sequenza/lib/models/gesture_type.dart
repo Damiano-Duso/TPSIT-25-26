@@ -27,19 +27,19 @@ class GameGesture {
   static const all = [
     GameGesture(
       type: GestureType.tiltRight,
-      label: 'Destra',
-      emoji: '➡️',
-      instruction: 'Inclina a DESTRA',
-      color: Color(0xFF4CAF50),
-      icon: Icons.arrow_forward_rounded,
-    ),
-    GameGesture(
-      type: GestureType.tiltLeft,
       label: 'Sinistra',
       emoji: '⬅️',
       instruction: 'Inclina a SINISTRA',
-      color: Color(0xFF2196F3),
+      color: Color(0xFF4CAF50),
       icon: Icons.arrow_back_rounded,
+    ),
+    GameGesture(
+      type: GestureType.tiltLeft,
+      label: 'Destra',
+      emoji: '➡️',
+      instruction: 'Inclina a DESTRA',
+      color: Color(0xFF2196F3),
+      icon: Icons.arrow_forward_rounded,
     ),
     GameGesture(
       type: GestureType.tiltForward,

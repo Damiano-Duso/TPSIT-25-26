@@ -118,8 +118,8 @@ class _GestureLegend extends StatelessWidget {
   Widget build(BuildContext context) {
     // Lista dei gesti con icona, colore e descrizione
     final gestures = [
-      (Icons.arrow_forward_rounded, const Color(0xFF4CAF50), 'Inclina destra'),
-      (Icons.arrow_back_rounded, const Color(0xFF2196F3), 'Inclina sinistra'),
+      (Icons.arrow_back_rounded, const Color(0xFF4CAF50), 'Inclina sinistra'),
+      (Icons.arrow_forward_rounded, const Color(0xFF2196F3), 'Inclina destra'),
       (Icons.arrow_upward_rounded, const Color(0xFFFF9800), 'Inclina avanti'),
       (Icons.vibration_rounded, const Color(0xFFE91E63), 'Scuoti'),
     ];
