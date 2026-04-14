@@ -55,7 +55,7 @@ class GameService {
       String request = jsonEncode({
         'action': 'joinGame',
       });
-      _socket.write(request + '\n');
+      _socket.write('$request\n');
     }
   }
 
@@ -65,7 +65,7 @@ class GameService {
         'action': 'makeMove',
         'position': position,
       });
-      _socket.write(request + '\n');
+      _socket.write('$request\n');
     }
   }
 

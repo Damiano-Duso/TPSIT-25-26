@@ -1,3 +1,8 @@
+import 'package:flutter/material.dart';
+import 'dart:async';
+import 'Question.dart';
+import 'TriviaService.dart';
+
 //////////////////////////////////////////////////
 //QUIZ SCREEN
 class QuizScreen extends StatefulWidget {

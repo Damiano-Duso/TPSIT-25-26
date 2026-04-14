@@ -3,7 +3,7 @@ import '../services/game_service.dart';
 import 'game_screen.dart';
 
 class ConnectionScreen extends StatefulWidget {
-  const ConnectionScreen({Key? key}) : super(key: key);
+  const ConnectionScreen({super.key});
 
   @override
   State<ConnectionScreen> createState() => _ConnectionScreenState();

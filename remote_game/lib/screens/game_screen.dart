@@ -8,11 +8,11 @@ class GameScreen extends StatefulWidget {
   final int serverPort;
 
   const GameScreen({
-    Key? key,
+    super.key,
     required this.gameService,
     required this.serverHost,
     required this.serverPort,
-  }) : super(key: key);
+  });
 
   @override
   State<GameScreen> createState() => _GameScreenState();

@@ -5,11 +5,11 @@ import 'screens/home_screen.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  runApp(const MotionSimonApp());
+  runApp(const SensoriApp());
 }
 
-class MotionSimonApp extends StatelessWidget {
-  const MotionSimonApp({super.key});
+class SensoriApp extends StatelessWidget {
+  const SensoriApp({super.key});
 
   @override
   Widget build(BuildContext context) {

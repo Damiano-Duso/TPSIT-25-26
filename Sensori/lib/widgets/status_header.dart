@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../models/game_controller.dart';
-import '../models/gesture_type.dart';
 
 class StatusHeader extends StatelessWidget {
   final GameController ctrl;

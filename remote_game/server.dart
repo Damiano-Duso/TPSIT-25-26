@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
 
@@ -128,7 +127,7 @@ void main() async {
                 'board': room.board,
                 'currentPlayer': room.currentPlayer,
               });
-              waitingPlayer.write(gameStartMessage + '\n');
+              waitingPlayer.write('$gameStartMessage\n');
 
               String gameStartMessage2 = jsonEncode({
                 'type': 'gameStarted',
@@ -137,7 +136,7 @@ void main() async {
                 'board': room.board,
                 'currentPlayer': room.currentPlayer,
               });
-              client.write(gameStartMessage2 + '\n');
+              client.write('$gameStartMessage2\n');
             } else {
               // Questo giocatore aspetta un avversario
               connectedClients[client] = null;
@@ -145,7 +144,7 @@ void main() async {
                 'type': 'waiting',
                 'message': 'In attesa di un avversario...',
               });
-              client.write(waitMessage + '\n');
+              client.write('$waitMessage\n');
             }
           } else if (action == 'makeMove') {
             int position = request['position'] ?? -1;
@@ -177,15 +176,15 @@ void main() async {
                       'winner': room.winner,
                     });
 
-                    client.write(stateMessage + '\n');
-                    opponent.write(stateMessage + '\n');
+                    client.write('$stateMessage\n');
+                    opponent.write('$stateMessage\n');
                   } else {
                     // Mossa non valida
                     String errorMessage = jsonEncode({
                       'type': 'error',
                       'message': 'Mossa non valida',
                     });
-                    client.write(errorMessage + '\n');
+                    client.write('$errorMessage\n');
                   }
                 } else {
                   // Non è il turno di questo giocatore o posizione non valida
@@ -193,7 +192,7 @@ void main() async {
                     'type': 'error',
                     'message': 'Non è il tuo turno o posizione non valida',
                   });
-                  client.write(errorMessage + '\n');
+                  client.write('$errorMessage\n');
                 }
               }
             }
@@ -204,7 +203,7 @@ void main() async {
             'type': 'error',
             'message': 'Errore nel server',
           });
-          client.write(errorMessage + '\n');
+          client.write('$errorMessage\n');
         }
       },
       onError: (error) {
@@ -215,7 +214,7 @@ void main() async {
             'type': 'opponentDisconnected',
             'message': "L'avversario si è disconnesso",
           });
-          opponent.write(disconnectMessage + '\n');
+          opponent.write('$disconnectMessage\n');
           connectedClients.remove(opponent);
         }
         connectedClients.remove(client);
@@ -228,7 +227,7 @@ void main() async {
             'type': 'opponentDisconnected',
             'message': "L'avversario si è disconnesso",
           });
-          opponent.write(disconnectMessage + '\n');
+          opponent.write('$disconnectMessage\n');
           connectedClients.remove(opponent);
         }
         connectedClients.remove(client);

@@ -1,4 +1,5 @@
 /// Configurazione dell'applicazione Tris Online
+library;
 
 // CONFIGURAZIONE DEL SERVER
 

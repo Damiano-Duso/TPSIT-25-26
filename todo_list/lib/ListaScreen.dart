@@ -1,4 +1,8 @@
-   //SCHERMATA LISTA
+   import 'package:flutter/material.dart';
+import 'Task.dart';
+import 'StatsScreen.dart';
+
+//SCHERMATA LISTA
 class ListaScreen extends StatefulWidget {
   @override
   _ListaScreenState createState() => _ListaScreenState();

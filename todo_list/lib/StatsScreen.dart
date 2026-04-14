@@ -1,4 +1,7 @@
    //SCHERMATA STATS
+import 'package:flutter/material.dart';
+import 'Task.dart';
+
 class StatsScreen extends StatelessWidget {
   final List<Task> tasks;
      //Riceve la lista dei task dalla schermata Lista

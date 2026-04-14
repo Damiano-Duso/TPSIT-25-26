@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'Question.dart';
+
 //////////////////////////////////////////////////
 //SERVICE
 //Classe per gestire le chiamate API
