@@ -1,16 +1,17 @@
+// Import delle librerie e schermate necessarie
 import 'package:flutter/material.dart';
 import 'HomeScreen.dart';
 import 'QuizScreen.dart';
 import 'ResoultScreen.dart';
 
 //////////////////////////////////////////////////
-//MAIN
+//MAIN - Punto di ingresso dell'applicazione Quiz
 void main() {
   runApp(const QuizApp());
 }
 
 //////////////////////////////////////////////////
-//WIDGET PRINCIPALE DELL'APP
+//WIDGET PRINCIPALE DELL'APP - Classe principale dell'app Quiz
 class QuizApp extends StatelessWidget {
   const QuizApp({super.key});
 

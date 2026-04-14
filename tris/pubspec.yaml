@@ -1,4 +1,4 @@
-name: remote_game
+name: tris
 description: "Applicazione di gioco Tris (Tic-Tac-Toe) multiplayer tramite socket TCP."
 publish_to: 'none'
 

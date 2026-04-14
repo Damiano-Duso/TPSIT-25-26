@@ -1,3 +1,4 @@
+// Import delle librerie e modelli necessari
 import 'package:flutter/material.dart';
 import '../models/game_controller.dart';
 import '../models/gesture_type.dart';
@@ -5,6 +6,7 @@ import '../widgets/gesture_card.dart';
 import '../widgets/sequence_preview.dart';
 import '../widgets/status_header.dart';
 
+// Schermata di gioco per Replica Sequenza
 class GameScreen extends StatefulWidget {
   final GameController controller;
   const GameScreen({super.key, required this.controller});
@@ -13,6 +15,7 @@ class GameScreen extends StatefulWidget {
   State<GameScreen> createState() => _GameScreenState();
 }
 
+// Stato della schermata di gioco
 class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   late AnimationController _bgController;
   late Animation<Color?> _bgColor;
@@ -20,6 +23,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    // Inizializza il controller delle animazioni per il background
     _bgController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 400),
@@ -29,13 +33,17 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
       end: const Color(0xFF0D0D1A),
     ).animate(_bgController);
 
+    // Aggiunge un listener per gli aggiornamenti del gioco
     widget.controller.addListener(_onGameUpdate);
+    // Avvia il gioco
     widget.controller.startGame();
   }
 
+  // Metodo chiamato quando il controller del gioco si aggiorna
   void _onGameUpdate() {
     if (!mounted) return;
     final phase = widget.controller.phase;
+    // Lampeggia il background in rosso per fallimenti, verde per successi
     if (phase == GamePhase.failure) {
       _flashBackground(const Color(0xFFD32F2F));
     } else if (widget.controller.correctFlash) {
@@ -44,6 +52,7 @@ class _GameScreenState extends State<GameScreen> with TickerProviderStateMixin {
     setState(() {});
   }
 
+  // Metodo per lampeggiare il background con un colore specifico
   void _flashBackground(Color color) {
     _bgColor = ColorTween(
       begin: color.withOpacity(0.3),

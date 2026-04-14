@@ -1,7 +1,9 @@
+// Import delle librerie necessarie
 import 'package:flutter/material.dart';
 import '../models/game_controller.dart';
 import 'game_screen.dart';
 
+// Schermata iniziale dell'app Replica Sequenza
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -43,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 32),
                 const Text(
-                  'Motion Simon',
+                  'Replica Sequenza',
                   style: TextStyle(
                     fontSize: 38,
                     fontWeight: FontWeight.w900,
@@ -100,6 +102,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  // Metodo per avviare il gioco e navigare alla schermata di gioco
   void _startGame(BuildContext context) {
     final controller = GameController();
     Navigator.of(context).push(
@@ -113,6 +116,7 @@ class HomeScreen extends StatelessWidget {
 class _GestureLegend extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Lista dei gesti con icona, colore e descrizione
     final gestures = [
       (Icons.arrow_forward_rounded, const Color(0xFF4CAF50), 'Inclina destra'),
       (Icons.arrow_back_rounded, const Color(0xFF2196F3), 'Inclina sinistra'),
@@ -153,6 +157,7 @@ class _GestureLegend extends StatelessWidget {
   }
 }
 
+// Widget per rappresentare un singolo elemento della legenda dei gesti
 class _LegendItem extends StatelessWidget {
   final IconData icon;
   final Color color;

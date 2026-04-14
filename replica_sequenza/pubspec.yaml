@@ -1,5 +1,5 @@
-name: sensori
-description: sensori
+name: replica_sequenza
+description: replica_sequenza
 
 publish_to: 'none'
 version: 1.0.0+1

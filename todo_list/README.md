@@ -12,6 +12,13 @@ Questa app permette di creare, modificare e segnare come completate attività (t
 - Segnare i task come completati
 - Visualizzazione semplice delle statistiche (numero di task totali/completati)
 
+## File del progetto
+
+- `lib/main.dart`: Punto di ingresso dell'applicazione.
+- `lib/ListaScreen.dart`: Schermata principale con la lista dei task.
+- `lib/StatsScreen.dart`: Schermata delle statistiche.
+- `lib/Task.dart`: Modello per rappresentare un task.
+
 ## Requisiti
 
 - Flutter SDK (versione stabile consigliata)

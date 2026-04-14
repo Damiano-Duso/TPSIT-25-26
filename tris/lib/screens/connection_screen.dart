@@ -1,7 +1,9 @@
+// Import delle librerie necessarie
 import 'package:flutter/material.dart';
 import '../services/game_service.dart';
 import 'game_screen.dart';
 
+// Schermata per la connessione al server Tris
 class ConnectionScreen extends StatefulWidget {
   const ConnectionScreen({super.key});
 
@@ -9,6 +11,7 @@ class ConnectionScreen extends StatefulWidget {
   State<ConnectionScreen> createState() => _ConnectionScreenState();
 }
 
+// Stato della schermata di connessione
 class _ConnectionScreenState extends State<ConnectionScreen> {
   late TextEditingController _hostController;
   late TextEditingController _portController;
@@ -17,22 +20,26 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
   @override
   void initState() {
     super.initState();
+    // Inizializza i controller per i campi di testo
     _hostController = TextEditingController(text: 'localhost');
     _portController = TextEditingController(text: '5000');
   }
 
   @override
   void dispose() {
+    // Rilascia le risorse dei controller
     _hostController.dispose();
     _portController.dispose();
     super.dispose();
   }
 
+  // Metodo per connettersi al server
   void _connect() async {
     final host = _hostController.text.trim();
     final port = int.tryParse(_portController.text.trim()) ?? 5000;
 
     if (host.isEmpty) {
+      // Mostra un messaggio di errore se l'host è vuoto
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Inserisci l\'indirizzo del server')),
       );
@@ -43,9 +50,11 @@ class _ConnectionScreenState extends State<ConnectionScreen> {
       _isConnecting = true;
     });
 
+    // Crea il servizio di gioco con host e porta
     GameService gameService = GameService(host: host, port: port);
 
     if (mounted) {
+      // Naviga alla schermata di gioco se connesso
       Navigator.push(
         context,
         MaterialPageRoute(

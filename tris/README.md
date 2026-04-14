@@ -1,19 +1,19 @@
-# Remote Game - Tris Online
+# Tris Online
 
 Applicazione mobile Flutter per giocare a Tris (Tic-Tac-Toe) a distanza tra due giocatori, con comunicazione via socket TCP.
 
 ## Architettura
 
 ```
-remote_game/
-├── server.dart                    # Server TCP
+tris/
+├── server.dart                    # Server TCP per gestire le connessioni
 ├── lib/
-│   ├── main.dart                 # Entry point
-│   ├── models/game_model.dart     # Modello Tris
-│   ├── services/game_service.dart # Servizio TCP
+│   ├── main.dart                 # Punto di ingresso dell'applicazione
+│   ├── models/game_model.dart     # Modello di dati per il gioco del Tris
+│   ├── services/game_service.dart # Servizio per la comunicazione TCP
 │   └── screens/
-│       ├── connection_screen.dart # Connessione
-│       └── game_screen.dart       # Gioco
+│       ├── connection_screen.dart # Schermata per inserire indirizzo e porta del server
+│       └── game_screen.dart       # Schermata principale del gioco
 └── pubspec.yaml
 ```
 

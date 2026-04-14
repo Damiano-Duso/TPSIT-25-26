@@ -13,6 +13,15 @@ Il progetto ha uno scopo principalmente didattico ed è pensato per dimostrare l
 * navigazione tra schermate
 * dati JSON
 
+## File del progetto
+
+- `lib/main.dart`: Punto di ingresso dell'applicazione.
+- `lib/HomeScreen.dart`: Schermata iniziale per selezionare difficoltà e numero di domande.
+- `lib/QuizScreen.dart`: Schermata del quiz con domande e risposte.
+- `lib/ResoultScreen.dart`: Schermata dei risultati con punteggio.
+- `lib/Question.dart`: Modello per rappresentare una domanda.
+- `lib/TriviaService.dart`: Servizio per chiamare l'API OpenTriviaDB.
+
 ## Posizione Codice
 Il codice del gioco si trova dentro alla cartella "lib" e il file si chiama: "main.dart"
 

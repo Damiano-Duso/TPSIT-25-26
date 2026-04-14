@@ -1,4 +1,4 @@
-# Sensori
+# Replica Sequenza
 
 Progetto scolastico realizzato in Flutter che utilizza il sensore accelerometro del dispositivo per creare un gioco di memoria gestuale ispirato al classico Simon Says.
 
@@ -7,6 +7,20 @@ Progetto scolastico realizzato in Flutter che utilizza il sensore accelerometro 
 ## Descrizione
 
 L'app genera una sequenza casuale di gesti fisici da replicare con il telefono. Ad ogni round superato, la sequenza si allunga di un gesto. L'obiettivo è arrivare il più lontano possibile senza sbagliarne uno.
+
+---
+
+## File del progetto
+
+- `lib/main.dart`: Punto di ingresso dell'applicazione, configura il tema e avvia la schermata iniziale.
+- `lib/screens/home_screen.dart`: Schermata iniziale con il logo, descrizione del gioco e pulsante per iniziare.
+- `lib/screens/game_screen.dart`: Schermata principale del gioco dove si visualizza la sequenza e si interagisce.
+- `lib/models/game_controller.dart`: Logica di controllo del gioco, gestione della sequenza e fasi.
+- `lib/models/gesture_type.dart`: Definizioni dei tipi di gesti riconosciuti.
+- `lib/widgets/gesture_card.dart`: Widget per rappresentare un singolo gesto nella sequenza.
+- `lib/widgets/sequence_preview.dart`: Widget per mostrare l'anteprima della sequenza.
+- `lib/widgets/status_header.dart`: Widget per mostrare lo stato del gioco (punteggio, fase).
+- `lib/services/`: Directory per i servizi, come la gestione dei sensori.
 
 ---
 
