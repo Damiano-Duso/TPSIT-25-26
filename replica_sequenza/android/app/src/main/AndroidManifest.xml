@@ -4,7 +4,7 @@
     <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
 
     <application
-        android:label="Motion Simon"
+        android:label="Replica Sequenza"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

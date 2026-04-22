@@ -1,6 +1,7 @@
-   import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'Task.dart';
 import 'StatsScreen.dart';
+import 'DatabaseHelper.dart';
 
 //SCHERMATA LISTA
 class ListaScreen extends StatefulWidget {
@@ -11,15 +12,56 @@ class ListaScreen extends StatefulWidget {
 class _ListaScreenState extends State<ListaScreen> {
   List<Task> tasks = []; // Lista principale dei task
   TextEditingController controller = TextEditingController();
+  final DatabaseHelper _dbHelper = DatabaseHelper();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadTasks(); // Carica i task dal database all'avvio
+  }
+
+  // Carica i task dal database
+  Future<void> _loadTasks() async {
+    final loadedTasks = await _dbHelper.getAllTasks();
+    setState(() {
+      tasks = loadedTasks;
+    });
+  }
 
   // Metodo per aggiungere un nuovo task
-  void aggiungiTask() {
+  Future<void> aggiungiTask() async {
     if (controller.text.isNotEmpty) {
+      Task newTask = Task(
+        titolo: controller.text,
+        completato: false,
+      );
+
+      // Inserisce nel database
+      int id = await _dbHelper.insertTask(newTask);
+      newTask.id = id; // Assegna l'ID generato dal database
+
       setState(() {
-        tasks.add(Task(controller.text, false));
+        tasks.add(newTask);
         controller.clear();
       });
     }
+  }
+
+  // Metodo per marcare un task come completato/non completato
+  Future<void> _toggleTask(int index, bool value) async {
+    tasks[index].completato = value;
+    await _dbHelper.updateTask(tasks[index]);
+    setState(() {});
+  }
+
+  // Metodo per eliminare un task
+  Future<void> _deleteTask(int index) async {
+    if (tasks[index].id != null) {
+      await _dbHelper.deleteTask(tasks[index].id!);
+    }
+    setState(() {
+      tasks.removeAt(index);
+    });
   }
 
   @override
@@ -72,14 +114,20 @@ class _ListaScreenState extends State<ListaScreen> {
             child: ListView.builder(
               itemCount: tasks.length,
               itemBuilder: (context, index) {
-                return CheckboxListTile(
+                return ListTile(
+                  leading: Checkbox(
+                    value: tasks[index].completato,
+                    onChanged: (value) {
+                      _toggleTask(index, value!);
+                    },
+                  ),
                   title: Text(tasks[index].titolo),
-                  value: tasks[index].completato,
-                  onChanged: (value) {
-                    setState(() {
-                      tasks[index].completato = value!;
-                    });
-                  },
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete, color: Colors.red),
+                    onPressed: () {
+                      _deleteTask(index);
+                    },
+                  ),
                 );
               },
             ),
@@ -87,5 +135,11 @@ class _ListaScreenState extends State<ListaScreen> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }

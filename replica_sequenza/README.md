@@ -1,4 +1,4 @@
-# Replica Sequenza
+2# Replica Sequenza
 
 Progetto scolastico realizzato in Flutter che utilizza il sensore accelerometro del dispositivo per creare un gioco di memoria gestuale ispirato al classico Simon Says.
 
